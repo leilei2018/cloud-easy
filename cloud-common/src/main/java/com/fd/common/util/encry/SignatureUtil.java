@@ -49,11 +49,12 @@ public class SignatureUtil {
         String str = "a=1&b=2&c=3";
 
         String sign = sign(str, privateKey);
+        System.out.println(sign);
         String sign2 = sign("a=1&b=2&c=4", privateKey);
 
         //服务方
         String reqStr = "a=1&b=2&c=3";
-        boolean b = verifyMethod(reqStr, sign2, publicKey);
+        boolean b = verifyMethod(reqStr, sign, publicKey);
         System.out.println(b);
     }
 }

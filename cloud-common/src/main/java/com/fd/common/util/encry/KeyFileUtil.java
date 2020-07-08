@@ -2,20 +2,10 @@ package com.fd.common.util.encry;
 
 
 import com.fd.common.enums.KeyType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
-import java.security.*;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.HashMap;
-import java.util.Map;
+import java.security.Key;
 
 @Slf4j
 public class KeyFileUtil {
@@ -23,7 +13,7 @@ public class KeyFileUtil {
     static final String RSA_ALGORITHM = "RSA";
     static final String OS_NAME = "Linux";
     static final String LinuxPATH = "/usr/local/fpay";
-    static final String WindowPATH = "g:/fpay";
+    static final String WindowPATH = "g:/fpay/";
     static final String path = OS_NAME.equals(System.getProperty("os.name"))?LinuxPATH:WindowPATH;
     /**
      * 初始化，生成一对密钥对，然后写入到文件
