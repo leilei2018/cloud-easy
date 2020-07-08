@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="10 seconds">
+
+    <contextName>logback</contextName>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{YYYY:MM:dd} %d{HH:mm:ss.SSS} [%level] [%thread] %r %logger{36} %M %L - ****%m#### %n</pattern>
+        </encoder>
+    </appender>
+
+
+
+    <logger name="ch.qos.logback.classic" level="ERROR" additivity="false"/>
+    <logger name="org.springframework" level="debug" additivity="false"/>
+    <logger name="org.redisson" level="trace" additivity="false"/>
+    <root level="debug">
+        <appender-ref ref="console"/>
+    </root>
+
+</configuration>

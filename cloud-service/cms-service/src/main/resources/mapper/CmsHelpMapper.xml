@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.swagger.mapper.CmsHelpMapper">
+
+    <sql id="baseWhereSql">
+        <where>
+            <if test="id != null"> and t.id = #{id}</if>
+            <if test="categoryId != null"> and t.category_id = #{categoryId}</if>
+            <if test="icon != null and icon != ''"> and t.icon = #{icon}</if>
+            <if test="title != null and title != ''"> and t.title = #{title}</if>
+            <if test="showStatus != null"> and t.show_status = #{showStatus}</if>
+            <if test="createTime != null"> and t.create_time = #{createTime}</if>
+            <if test="readCount != null"> and t.read_count = #{readCount}</if>
+            <if test="content != null and content != ''"> and t.content = #{content}</if>
+            <if test="startTime != null">and t.create_time>=#{startTime}</if>
+            <if test="endTime != null">and t.create_time&lt;=#{endTime}</if>
+        </where>
+    </sql>
+    <select id="findById" parameterType="long" resultType="cmshelpvo">
+        select t.id, t.category_id, t.icon, t.title, t.show_status, t.create_time, t.read_count, t.content
+        from cms_help t
+        where id = #{id}
+    </select>
+    <select id="findByIdForupdate" parameterType="long" resultType="cmshelpvo">
+        select t.id, t.category_id, t.icon, t.title, t.show_status, t.create_time, t.read_count, t.content
+        from cms_help t
+        where id = #{id} for update
+    </select>
+
+    <select id="findByIds" parameterType="arraylist" resultType="cmshelpvo">
+        select t.id, t.category_id, t.icon, t.title, t.show_status, t.create_time, t.read_count, t.content
+        from cms_help t
+        where id in
+        <foreach collection="list"  open="(" close=")" separator=","  item="item" >
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findList" parameterType="cmshelp" resultType="cmshelpvo">
+        select t.id, t.category_id, t.icon, t.title, t.show_status, t.create_time, t.read_count, t.content
+        from cms_help t
+
+        <include refid="baseWhereSql"/>
+    </select>
+
+    <insert id="insert" parameterType="cmshelp" useGeneratedKeys="true" keyProperty="id" >
+        insert into cms_help(
+        <if test="id != null"> id, </if>
+
+        <if test="categoryId != null"> category_id, </if>
+
+        <if test="icon != null"> icon, </if>
+
+        <if test="title != null"> title, </if>
+
+        <if test="showStatus != null"> show_status, </if>
+
+        <if test="createTime != null"> create_time, </if>
+
+        <if test="readCount != null"> read_count, </if>
+
+        <if test="content != null"> content </if>
+
+        )
+        values(
+        <if test="id != null"> #{id,jdbcType=BIGINT}, </if>
+
+        <if test="categoryId != null"> #{categoryId,jdbcType=BIGINT}, </if>
+
+        <if test="icon != null"> #{icon,jdbcType=VARCHAR}, </if>
+
+        <if test="title != null"> #{title,jdbcType=VARCHAR}, </if>
+
+        <if test="showStatus != null"> #{showStatus,jdbcType=INTEGER}, </if>
+
+        <if test="createTime != null"> #{createTime,jdbcType=TIMESTAMP}, </if>
+
+        <if test="readCount != null"> #{readCount,jdbcType=INTEGER}, </if>
+
+        <if test="content != null"> #{content,jdbcType=LONGVARCHAR} </if>
+
+        )
+    </insert>
+
+    <update id="update" parameterType="cmshelp">
+        update cms_help
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="categoryId != null"> category_id = #{categoryId}, </if>
+            <if test="icon != null and icon != ''"> icon = #{icon}, </if>
+            <if test="title != null and title != ''"> title = #{title}, </if>
+            <if test="showStatus != null"> show_status = #{showStatus}, </if>
+            <if test="createTime != null"> create_time = #{createTime}, </if>
+            <if test="readCount != null"> read_count = #{readCount}, </if>
+            <if test="content != null and content != ''"> content = #{content}, </if>
+        </trim>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteByIds" parameterType="arraylist">
+        delete from cms_help  t where id in
+        <foreach collection="list"  open="(" close=")" separator=","  item="item" >
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

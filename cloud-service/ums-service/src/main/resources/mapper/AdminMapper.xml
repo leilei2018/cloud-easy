@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.userservice.dao.mapper.AdminMapper">
+
+    <sql id="baseWhereSql">
+        <where>
+            <if test="id != null"> and t.id = #{id}</if>
+            <if test="username != null and username != ''"> and t.username = #{username}</if>
+            <if test="password != null and password != ''"> and t.password = #{password}</if>
+            <if test="icon != null and icon != ''"> and t.icon = #{icon}</if>
+            <if test="email != null and email != ''"> and t.email = #{email}</if>
+            <if test="nickName != null and nickName != ''"> and t.nick_name = #{nickName}</if>
+            <if test="note != null and note != ''"> and t.note = #{note}</if>
+            <if test="createTime != null"> and t.create_time = #{createTime}</if>
+            <if test="loginTime != null"> and t.login_time = #{loginTime}</if>
+            <if test="status != null"> and t.status = #{status}</if>
+        </where>
+    </sql>
+
+    <select id="findById" parameterType="long" resultType="admin">
+		select t.id, t.username, t.password, t.icon, t.email, t.nick_name, t.note, t.create_time, t.login_time, t.status
+
+		from ums_admin t
+
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+    <select id="findByIds" parameterType="arraylist" resultType="admin">
+        select t.id, t.username, t.password, t.icon, t.email, t.nick_name, t.note, t.create_time, t.login_time, t.status
+
+        from ums_admin t
+
+        where id in
+        <foreach collection="list"  open="(" close=")" separator=","  item="item" >
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findList" parameterType="admin" resultType="admin">
+        select t.id, t.username, t.password, t.icon, t.email, t.nick_name, t.note, t.create_time, t.login_time, t.status      	 <include refid="baseWhereSql"/>
+    </select>
+
+    <insert id="insert" parameterType="admin" useGeneratedKeys="true" keyProperty="id" >
+        insert into ums_admin(
+        <if test="id != null"> id, </if>
+
+        <if test="username != null"> username, </if>
+
+        <if test="password != null"> password, </if>
+
+        <if test="icon != null"> icon, </if>
+
+        <if test="email != null"> email, </if>
+
+        <if test="nickName != null"> nick_name, </if>
+
+        <if test="note != null"> note, </if>
+
+        <if test="createTime != null"> create_time, </if>
+
+        <if test="loginTime != null"> login_time, </if>
+
+        <if test="status != null"> status </if>
+
+        )
+        values(
+        <if test="id != null"> #{id,jdbcType=BIGINT}, </if>
+
+        <if test="username != null"> #{username,jdbcType=VARCHAR}, </if>
+
+        <if test="password != null"> #{password,jdbcType=VARCHAR}, </if>
+
+        <if test="icon != null"> #{icon,jdbcType=VARCHAR}, </if>
+
+        <if test="email != null"> #{email,jdbcType=VARCHAR}, </if>
+
+        <if test="nickName != null"> #{nickName,jdbcType=VARCHAR}, </if>
+
+        <if test="note != null"> #{note,jdbcType=VARCHAR}, </if>
+
+        <if test="createTime != null"> #{createTime,jdbcType=TIMESTAMP}, </if>
+
+        <if test="loginTime != null"> #{loginTime,jdbcType=TIMESTAMP}, </if>
+
+        <if test="status != null"> #{status,jdbcType=INTEGER} </if>
+
+        )
+    </insert>
+
+    <update id="update" parameterType="admin">
+        update ums_admin
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null and username != ''"> username = #{username}, </if>
+            <if test="password != null and password != ''"> password = #{password}, </if>
+            <if test="icon != null and icon != ''"> icon = #{icon}, </if>
+            <if test="email != null and email != ''"> email = #{email}, </if>
+            <if test="nickName != null and nickName != ''"> nick_name = #{nickName}, </if>
+            <if test="note != null and note != ''"> note = #{note}, </if>
+            <if test="createTime != null"> create_time = #{createTime}, </if>
+            <if test="loginTime != null"> login_time = #{loginTime}, </if>
+            <if test="status != null"> status = #{status}, </if>
+        </trim>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteById" parameterType="long">
+		delete from ums_admin where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+    <delete id="deleteByIds" parameterType="arraylist">
+        delete from ums_admin  where id in
+        <foreach collection="list"  open="(" close=")" separator=","  item="item" >
+            #{item}
+        </foreach>
+    </delete>
+
+
+
+    <sql id="queryConditionSql">
+        <where>
+            <if test="id != null"> and t.id = #{id}</if>
+            <if test="username != null and username != ''"> and t.username = #{username}</if>
+            <if test="password != null and password != ''"> and t.password = #{password}</if>
+            <if test="icon != null and icon != ''"> and t.icon = #{icon}</if>
+            <if test="email != null and email != ''"> and t.email = #{email}</if>
+            <if test="nickName != null and nickName != ''"> and t.nick_name = #{nickName}</if>
+            <if test="note != null and note != ''"> and t.note = #{note}</if>
+            <if test="createTime != null"> and t.create_time = #{createTime}</if>
+            <if test="loginTime != null"> and t.login_time = #{loginTime}</if>
+            <if test="status != null"> and t.status = #{status}</if>
+            <if test="startTime != null">and t.create_time>=#{startTime}</if>
+            <if test="endTime != null">and t.create_time&lt;=#{endTime}</if>
+            <if test="password != null and password != ''">
+                AND t.password LIKE  CONCAT('%',#{password},'%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="queryList" parameterType="admin" resultType="admin">
+        select t.id, t.username, t.password, t.icon, t.email, t.nick_name, t.note, t.create_time, t.login_time, t.status
+
+        from ums_admin t
+
+        <include refid="queryConditionSql"/>
+    </select>
+
+</mapper>

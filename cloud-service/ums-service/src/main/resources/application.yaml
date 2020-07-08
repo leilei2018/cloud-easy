@@ -1,0 +1,28 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: ums-service
+  cloud:
+    sentinel:
+      enabled: false
+
+      log:
+        switchPid: true
+      transport:
+        dashboard: localhost:8888
+      datasource:
+        ds1:
+          nacos:
+            serverAddr: localhost:8848
+            groupId: ${spring.application.name}
+            dataId:  flow
+            rule-type: flow
+
+mybatis:
+  type-aliases-package: com.fd.userservice.dao.model.entity
+  mapper-locations: mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

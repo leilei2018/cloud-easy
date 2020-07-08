@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: service-sentinel
+  cloud:
+    sentinel:
+      log:
+        switchPid: false
+      datasource:
+        ds1:
+          nacos:
+            serverAddr: localhost:8848
+            groupId: ${spring.application.name}
+            dataId:  flow
+            rule-type: flow
+      transport:
+        dashboard: localhost:8888
+
+
+      enabled: true
+server:
+  port: -1

@@ -1,0 +1,39 @@
+service:
+  env: -hepan
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: 192.168.21.134:8848
+        namespace: a24cd7a0-c759-42b9-bc84-d2b47acc08de
+        service: ${spring.application.name}${service.env}
+      config:
+        server-addr: 192.168.21.134:8848
+        namespace: a24cd7a0-c759-42b9-bc84-d2b47acc08de
+        extensionConfigs:
+          -
+            dataId: mysql.yml
+          -
+            dataId: common.yml
+
+--- #profiles
+spring:
+  profiles: eureka
+eureka:
+  server: http://localhost:7000/eureka
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: ${eureka.server}
+    register-with-eureka: true
+    fetch-registry: true
+--- #
+spring:
+  profiles: zk
+  cloud:
+    zookeeper:
+      enabled: true
+      connect-string: 192.168.21.134:2181
+      discovery:
+        root: /registry-center/services

@@ -1,0 +1,39 @@
+{
+  "name": "user-service",
+  "id": "dfcfe6f0-a9e8-4507-ac84-9a7718a781c3",
+  "address": "PC-201902111926",
+  "port": 8000,
+  "sslPort": null,
+  "payload": {
+    "@class": "org.springframework.cloud.zookeeper.discovery.ZookeeperInstance",
+    "id": "application-1",
+    "name": "user-service",
+    "metadata": {}
+  },
+  "registrationTimeUTC": 1585817043937,
+  "serviceType": "DYNAMIC",
+  "uriSpec": {
+    "parts": [
+      {
+        "value": "scheme",
+        "variable": true
+      },
+      {
+        "value": "://",
+        "variable": false
+      },
+      {
+        "value": "address",
+        "variable": true
+      },
+      {
+        "value": ":",
+        "variable": false
+      },
+      {
+        "value": "port",
+        "variable": true
+      }
+    ]
+  }
+}

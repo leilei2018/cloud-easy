@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        group: group-gateway
+        name: dataid-gateway
+        fileExtension: yaml
+        serverAddr: localhost:8848
+        refresh-enabled: true

@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: dev
+  cloud:
+    zookeeper:
+      enabled: false #关闭zk自动注册
+    nacos:
+      discovery:
+        enabled: true
+eureka:
+  client:
+    enabled: false  #关闭eureka自动注册

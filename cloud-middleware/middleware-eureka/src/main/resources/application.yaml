@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: eureka-server
+  cache:
+    type: simple
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+  redis:
+    host: 172.16.2.11:6379
+
+    redisson:
+       config: classpath:rediss.yml
+server:
+  port: 7000
+
+eureka:
+  server:
+    enable-self-preservation: false
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://localhost:${server.port}/eureka
+    enabled: false
+
+logging:
+  level:
+    org.springframework: info
+
+
