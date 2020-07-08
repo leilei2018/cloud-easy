@@ -21,6 +21,10 @@ import java.security.interfaces.RSAPublicKey;
  * keytool -importkeystore
  * -srckeystore g:/fpay/keystore/yushan.jks  -srcalias yushan-srcstorepass 123456  -srckeypass yushan
  * -destkeystore g:/fpay/keystore/yushan_pfx.pfx -deststoretype pkcs12 -deststorepass 123456 -destkeypass yushan
+ *
+ *
+ * #注意，有提示
+ * PKCS12 密钥库不支持其他存储和密钥口令。正在忽略用户指定的-destkeypass值，所以keypass被忽略，就等于storepass
  */
 public class KeyToolUtil implements Serializable {
 
