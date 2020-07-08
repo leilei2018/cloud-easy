@@ -41,7 +41,7 @@ public class KeyToolUtil implements Serializable {
 
     public static void main(String[] args) throws KeyStoreException, FileNotFoundException {
         //jks  => java key store,就是java利用keytool生成的.keystore文件（包含密钥对，或者受信任的证书，即公钥）
-        KeyStore ks = KeyStore.getInstance("JKS");
+        KeyStore ks = KeyStore.getInstance("PKCS12");
         //KeyStore ks = KeyStore.getInstance("PKCS12");
         char[] storepass = "123456".toCharArray(); //对应 -storepass
         char[] keypass = "123456".toCharArray(); //对应 -keypass  默认不输入，就等于storepass
@@ -50,6 +50,9 @@ public class KeyToolUtil implements Serializable {
             ks.load(fis, storepass);
             String alias = "yushan";
             KeyStore.ProtectionParameter protParam = new KeyStore.PasswordProtection(keypass);
+
+            //同样，这样也可以直接获取到私钥key
+            RSAPrivateKey pk = (RSAPrivateKey) (ks.getKey(alias, storepass));
 
             //从keystore的 -genkeypair 别名中，获取私钥key
             KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry)ks.getEntry(alias, protParam);
@@ -61,7 +64,7 @@ public class KeyToolUtil implements Serializable {
             Certificate certificate = readCer("g:/fpay/keystore/c1.cer");
             RSAPublicKey publicKey1 = (RSAPublicKey)cert.getPublicKey();
             String data = "aagg";
-            String s = RSAUtil.privateEncrypt(data, privateKey);
+            String s = RSAUtil.privateEncrypt(data, pk);
             String s2 = RSAUtil.publicDecrypt(s, publicKey1);
             System.out.println(s2);
         } catch (IOException e) {
