@@ -1,7 +1,6 @@
 package com.fd.common.constant;
 
 
-import com.fd.common.exception.CodeException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

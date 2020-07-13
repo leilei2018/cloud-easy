@@ -5,6 +5,7 @@ import com.fd.cloud.serviceapi.cms.dto.cmshelp.CmsHelpAddDto;
 import com.fd.cloud.serviceapi.cms.dto.cmshelp.CmsHelpDto;
 import com.fd.cloud.serviceapi.cms.dto.cmshelp.CmsHelpUpdateDto;
 import com.fd.cloud.serviceapi.common.support.BaseResult;
+import com.fd.cloud.serviceapi.common.support.FacadeConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "cms-service", path = "/cmsHelp",configuration = {})
+@FeignClient(name = "cms-service"+ FacadeConstants.SERVICE_ENV, path = "/cmsHelp",configuration = {})
 public interface IFeignCmsHelpService {
     /**
      * 列表查询

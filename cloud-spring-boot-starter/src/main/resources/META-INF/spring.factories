@@ -1,1 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.fd.starter.CloudFdAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.fd.starter.CloudFdAutoConfiguration,\
+  com.fd.starter.WebJacksonAutoConfiguration

@@ -1,6 +1,8 @@
 package com.fd.cloud.serviceapi.common.support;
 
 
+import com.fd.cloud.serviceapi.common.support.enums.BizExceptionEnum;
+import com.fd.cloud.serviceapi.common.support.exception.impl.BizException;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -70,9 +72,28 @@ public class BaseResult<T> implements Serializable {
         return SUCCESS_CODE==result.getRspCode();
     }
 
+
+    public static <T> T getResult(BaseResult<T> result){
+        if (result==null){
+            throw new BizException(BizExceptionEnum.result_null);
+        }
+        if (!isOk(result)){
+            int rspCode = result.rspCode;
+
+            boolean cmsExp = rspCode>=1000&&rspCode<2000;
+            boolean umsExp = rspCode>=2000&&rspCode<3000;
+            boolean bizExp = cmsExp||umsExp;
+            if (bizExp){
+                throw new BizException(BizExceptionEnum.result_code_error,result.rspMsg);
+            }
+
+            throw new RuntimeException(result.rspMsg);
+        }
+        return result.data;
+    }
+
     public static <T> BaseResult<T> fallback(String message, T data) {
         BaseResult<T> result = new BaseResult<>(FALLBACK_CODE, message, data);
         return result;
     }
-
 }

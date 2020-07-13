@@ -1,11 +1,10 @@
 package config;
 
 import com.fd.cloud.serviceapi.common.support.BaseResult;
-import com.fd.cloud.serviceapi.common.support.exception.CloudException;
+import com.fd.cloud.serviceapi.common.support.enums.RequestExceptionEnum;
 import com.fd.cloud.serviceapi.common.support.exception.impl.BizException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -33,7 +32,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = ConstraintViolationException.class)
     @ResponseBody
     public BaseResult<?> constraintViolationExceptionHandler(HttpServletRequest req, ConstraintViolationException e) {
-        log.info("web统一异常处理(ConstraintViolationException 参数校验异常...)：url={},exception={}", req.getRequestURL(), e);
+        log.error("web统一异常处理(ConstraintViolationException 参数校验异常...)：url={},exception={}", req.getRequestURL(), e);
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         StringBuilder errInfo =  new StringBuilder();
         constraintViolations.forEach(constraintViolation -> {
@@ -58,7 +57,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     @ResponseBody
     public BaseResult<?> methodArgumentNotValidExceptionHandler(HttpServletRequest req, MethodArgumentNotValidException e) {
-        log.info("web统一异常处理(MethodArgumentNotValidException 输入参数异常...)：url={},exception={}", req.getRequestURL(), e);
+        log.error("web统一异常处理(MethodArgumentNotValidException 输入参数异常...)：url={},exception={}", req.getRequestURL(), e);
         StringBuilder sb = new StringBuilder();
         List<ObjectError> allErrors = e.getBindingResult().getAllErrors();
         for (ObjectError allError : allErrors) {
@@ -71,8 +70,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = BindException.class)
     @ResponseBody
     public BaseResult<?> bindExceptionHandler(HttpServletRequest req, Exception e) {
-        log.info("web统一异常处理(Exception系统异常...)：url={},exception={}", req.getRequestURL(), e);
-        log.error("数据绑定异常，输入内容不符，请您重新输入.", e);
+        log.error("web统一异常处理(Exception系统异常...)：url={},exception={}", req.getRequestURL(), e);
         if(e instanceof BindException){
             BindingResult bindingResult = ((BindException) e).getBindingResult();
             List<ObjectError> allErrors = bindingResult.getAllErrors();
@@ -86,11 +84,18 @@ public class GlobalExceptionHandler {
         return BaseResult.fail("数据绑定异常.");
     }
 
+    @ExceptionHandler(value = HttpMessageNotReadableException.class)
+    @ResponseBody
+    public BaseResult<?> defaultErrorHandler(HttpServletRequest req, HttpMessageNotReadableException e) {
+        log.error("web统一异常处理(Exception系统异常...)：url={},exception={}", req.getRequestURL(), e);
+        RequestExceptionEnum reqMessageNotRead = RequestExceptionEnum.REQ_MESSAGE_NOT_READ;
+        return BaseResult.fail(reqMessageNotRead.code(),reqMessageNotRead.message());
+    }
+
     @ExceptionHandler(value = BizException.class)
     @ResponseBody
     public BaseResult<?> defaultErrorHandler(HttpServletRequest req, BizException e) {
-        log.info("web统一异常处理(Exception系统异常...)：url={},exception={}", req.getRequestURL(), e);
-        log.error("未知系统异常,请联系管理员.", e);
+        log.error("web统一异常处理(Exception系统异常...)：url={},exception={}", req.getRequestURL(), e);
         return BaseResult.fail(e.code(),e.message());
     }
 
@@ -104,8 +109,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public BaseResult<?> defaultErrorHandler(HttpServletRequest req, Exception e) {
-        log.info("web统一异常处理(Exception系统异常...)：url={},exception={}", req.getRequestURL(), e);
-        log.error("未知系统异常,请联系管理员.", e);
+        log.error("web统一异常处理(Exception系统异常...)：url={},exception={}", req.getRequestURL(), e);
         return BaseResult.fail(500,"系统开小差了,请联系管理员.");
     }
 }

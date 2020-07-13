@@ -4,6 +4,7 @@ import com.fd.cloud.basecomponent.ddl.IBaseMapper;
 import com.fd.cloud.basecomponent.ddl.IBaseService;
 import com.fd.cloud.basecomponent.util.BeanConvertUtils;
 import com.fd.common.components.page.PagedResult;
+import com.fd.common.util.ReflectUtil;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -81,5 +82,10 @@ public abstract class AbstractBaseServiceImpl<T,K,M extends IBaseMapper<T,K>> im
     @Override
     public T findById(K id)  {
         return baseMapper.findById(id);
+    }
+
+    @Override
+    public int deleteById(K id) {
+        return baseMapper.deleteById(id);
     }
 }

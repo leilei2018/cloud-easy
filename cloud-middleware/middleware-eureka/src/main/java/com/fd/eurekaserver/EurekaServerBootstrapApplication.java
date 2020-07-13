@@ -6,11 +6,9 @@ import com.fd.eurekaserver.vo.LogVo;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
-import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -20,7 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.annotation.PostConstruct;
 import java.util.Random;
 
-@SpringBootApplication(exclude = {RedisAutoConfiguration.class, RedissonAutoConfiguration.class})
+@SpringBootApplication
 //@EnableEurekaServer
 @SimpleRestController
 @EnableScheduling
@@ -85,16 +83,14 @@ public class EurekaServerBootstrapApplication  {
         LogVo log = new LogVo();
         log.setName("we");
         validateService.vad1(log);
-        validateService.vad1(log);
-
+        LogVo logVo1 = validateService.vad1(log);
+        System.out.println(logVo1);
 
         LogVo log2 = new LogVo();
         log2.setName("qwer");
-        validateService.vad1(log);
-        validateService.vad1(log);
         validateService.vad1(log2);
-        validateService.vad1(log2);
-
+        LogVo logVo2 = validateService.vad1(log2);
+        System.out.println(logVo2);
         //SpringApplication.run(EurekaServerBootstrapApplication.class,args);
         //log.info("---------------用户编号[{}]的提现流水号[{}]的交易流水结果:[{}]",new Object[]{"aa","bb","cc"});
 

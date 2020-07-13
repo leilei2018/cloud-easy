@@ -1,31 +1,34 @@
 package com.fd.swagger;
 
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
-import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.util.ClassUtils;
 
 import java.io.IOException;
 
 @SpringBootApplication(
-        exclude = {RedissonAutoConfiguration.class, RedisAutoConfiguration.class}
+       /*exclude = {RedissonAutoConfiguration.class,
+               RedisAutoConfiguration.class,
+               DataSourceAutoConfiguration.class,
+               MybatisAutoConfiguration.class
+       }*/
 )
 @Slf4j
 @EnableFeignClients(basePackages = "com.fd.cloud.serviceapi.**.inter")
+@MapperScan("com.fd.swagger.dao.mapper")
+@EnableCaching
 public class SwaggerApplication {
     static ResourcePatternResolver RESOURCE_PATTERN_RESOLVER = new PathMatchingResourcePatternResolver();
+
+    @NacosValue(value="author",autoRefreshed=true)
+    private String author;
 
     static void test() throws IOException {
 //        Resource[] resources = RESOURCE_PATTERN_RESOLVER.getResources(ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
@@ -41,6 +44,8 @@ public class SwaggerApplication {
     }
 
     public static void main(String[] args) throws IOException {
-        SpringApplication.run(SwaggerApplication.class,args);
+       SpringApplication.run(SwaggerApplication.class,args);
+
+
     }
 }

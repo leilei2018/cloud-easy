@@ -12,18 +12,25 @@
     <artifactId>ums-service</artifactId>
     <dependencies>
         <dependency>
-            <groupId>com.fd.cloud</groupId>
+            <groupId>com.yzw.cloud</groupId>
             <artifactId>cloud-ums-service-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.fd.cloud</groupId>
+            <groupId>com.yzw.cloud</groupId>
             <artifactId>cloud-base-framework</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.fd.cloud</groupId>
+            <groupId>com.yzw.cloud</groupId>
             <artifactId>cloud-spring-boot-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.yzw.cloud</groupId>
+            <artifactId>cloud-cms-service-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

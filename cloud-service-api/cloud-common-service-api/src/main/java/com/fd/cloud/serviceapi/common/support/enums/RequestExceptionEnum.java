@@ -1,24 +1,10 @@
 package com.fd.cloud.serviceapi.common.support.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+public class RequestExceptionEnum extends ExceptionEnumAdapter{
 
-@AllArgsConstructor
-@Getter
-public enum RequestExceptionEnum implements ExceptionEnum{
-    REQ_MESSAGE_NOT_READ(1001,"请求消息body不正确");
-    int code;
-    String message;
+    public static final RequestExceptionEnum REQ_MESSAGE_NOT_READ = new RequestExceptionEnum(1000,"请求消息body不正确:REQ_MESSAGE_NOT_READ");
 
-    @Override
-    public int code() {
-        return code;
-    }
-
-    @Override
-    public String message() {
-        return message;
+    public RequestExceptionEnum(int code, String message) {
+        super(code, message);
     }
 }

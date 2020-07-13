@@ -1,18 +1,17 @@
 package com.fd.eurekaserver.vo;
 
-import com.google.common.base.Charsets;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 import lombok.Data;
-import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
-public class LogVo {
+public class LogVo implements Serializable {
+
     @NotNull(message = "uuid不能为空")
     private String date;
     private String age;

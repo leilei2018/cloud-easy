@@ -2,10 +2,11 @@ package com.fd.cloud.serviceapi.cms.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class CmsHelpVo {
+public class CmsHelpVo implements Serializable {
     /**  */
     private Long id;
 

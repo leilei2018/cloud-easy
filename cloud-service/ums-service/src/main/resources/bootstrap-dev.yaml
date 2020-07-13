@@ -9,6 +9,7 @@ spring:
         namespace: a24cd7a0-c759-42b9-bc84-d2b47acc08de
         service: ${spring.application.name}${service.env}
       config:
+        enabled: true
         server-addr: 192.168.21.134:8848
         namespace: a24cd7a0-c759-42b9-bc84-d2b47acc08de
         extensionConfigs:
@@ -16,6 +17,7 @@ spring:
             dataId: mysql.yml
           -
             dataId: common.yml
+
 
 --- #profiles
 spring:

@@ -10,3 +10,7 @@ spring:
 eureka:
   client:
     enabled: false  #关闭eureka自动注册
+
+jasypt:
+  encryptor:
+    password: F6BB00DD3AE2146763716D7A4A55CFBE

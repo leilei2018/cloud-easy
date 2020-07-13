@@ -2,13 +2,13 @@ spring:
   application:
     name: eureka-server
   cache:
-    type: simple
+    type: redis
   cloud:
     nacos:
       discovery:
         enabled: false
   redis:
-    host: 172.16.2.11:6379
+    host: 192.168.21.134:6379
 
     redisson:
        config: classpath:rediss.yml

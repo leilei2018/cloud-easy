@@ -14,10 +14,8 @@
     <modules>
         <module>cloud-common-service-api</module>
         <module>cloud-cms-service-api</module>
-        <module>cloud-common-service-api</module>
         <module>cloud-ums-service-api</module>
     </modules>
-
 
     <dependencies>
         <dependency>

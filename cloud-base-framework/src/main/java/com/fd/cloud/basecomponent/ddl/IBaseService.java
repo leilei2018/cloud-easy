@@ -34,4 +34,6 @@ public interface IBaseService<T,PK> {
      */
     public T findById(PK id) ;
 
+    public int deleteById(PK id);
+
 }

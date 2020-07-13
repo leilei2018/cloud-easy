@@ -19,7 +19,12 @@ spring:
             groupId: ${spring.application.name}
             dataId:  flow
             rule-type: flow
-
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: always
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
 mybatis:
   type-aliases-package: com.fd.userservice.dao.model.entity
   mapper-locations: mapper/**/*.xml

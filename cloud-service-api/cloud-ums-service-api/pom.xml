@@ -11,5 +11,12 @@
 
     <artifactId>cloud-ums-service-api</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.yzw.cloud</groupId>
+            <artifactId>cloud-common-service-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
