@@ -13,13 +13,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.IOException;
 
-@SpringBootApplication(
-       /*exclude = {RedissonAutoConfiguration.class,
-               RedisAutoConfiguration.class,
-               DataSourceAutoConfiguration.class,
-               MybatisAutoConfiguration.class
-       }*/
-)
+@SpringBootApplication
 @Slf4j
 @EnableFeignClients(basePackages = "com.fd.cloud.serviceapi.**.inter")
 @MapperScan("com.fd.swagger.dao.mapper")

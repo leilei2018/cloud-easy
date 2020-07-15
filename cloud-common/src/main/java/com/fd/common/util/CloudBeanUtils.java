@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 public class CloudBeanUtils {
     public static <T> T copyProperties(Object source,Class<T> dest){
         try {
-            Constructor<T> c = dest.getDeclaredConstructor(null);
+            Constructor<T> c = dest.getDeclaredConstructor();
             T t = c.newInstance(null);
             BeanUtils.copyProperties(source,t);
             return t;
