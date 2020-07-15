@@ -12,6 +12,7 @@ import java.util.List;
 
 //已GatewayFilterFactory结尾
 @Component
+//for testing
 public class MyGatewayFilterFactory extends AbstractGatewayFilterFactory<MyGatewayFilterFactory.MyConfig> {
 
     static final String keys = "enabled";

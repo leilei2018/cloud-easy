@@ -2,36 +2,30 @@ package com.fd.servicegateway.config;
 
 import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.cloud.nacos.NacosConfigProperties;
-import com.alibaba.cloud.nacos.client.NacosPropertySourceLocator;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.YamlMapFactoryBean;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.boot.context.properties.bind.Binder;
-import org.springframework.boot.json.YamlJsonParser;
 import org.springframework.cloud.bootstrap.config.PropertySourceBootstrapConfiguration;
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.core.env.*;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.PropertiesPropertySource;
+import org.springframework.core.env.PropertySource;
+import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
-import javax.annotation.PostConstruct;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
-
-@Component
+@Deprecated
 public class NacosConfigRouteDefinitionLocator implements RouteDefinitionLocator {
 
     Logger logger = LoggerFactory.getLogger(NacosConfigRouteDefinitionLocator.class);
@@ -50,7 +44,6 @@ public class NacosConfigRouteDefinitionLocator implements RouteDefinitionLocator
 
     String root = "NACOS";
 
-    @PostConstruct
     public void init(){
         String group = nacosConfigProperties.getGroup();
         String dataId = nacosConfigProperties.getName();

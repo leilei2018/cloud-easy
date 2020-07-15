@@ -2,8 +2,12 @@ spring:
   cloud:
     nacos:
       config:
-        group: group-gateway
-        name: dataid-gateway
-        fileExtension: yaml
-        serverAddr: localhost:8848
+        group: middleware-gateway
+        name: route
+        serverAddr: 192.168.21.134:8848
+        file-extension: yaml
         refresh-enabled: true
+      discovery:
+        enabled: true
+        server-addr: 192.168.21.134:8848
+        namespace: a24cd7a0-c759-42b9-bc84-d2b47acc08de
