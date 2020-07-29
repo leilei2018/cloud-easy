@@ -1,0 +1,1 @@
+1.repo接口继承MongoRepository<T,ID>

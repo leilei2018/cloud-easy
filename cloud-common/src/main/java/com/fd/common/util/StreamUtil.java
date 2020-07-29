@@ -30,6 +30,28 @@ public class StreamUtil {
         return stream(new ByteArrayInputStream(bytes),encoding);
     }
 
+    public static byte[] streamBytes(InputStream in,boolean end) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[bufferSize];
+        try{
+            int amount;
+            while ((amount = in.read(buffer)) >= 0) {
+                bos.write(buffer, 0, amount);
+            }
+            return bos.toByteArray();
+        }catch (Exception e){
+            log.error("streamBytes exception{}",e);
+        } finally {
+            try {
+                if(end){
+                  in.close();
+                }
+            } catch (IOException e) {
+            }
+        }
+        throw new RuntimeException("streamBytes exception");
+    }
+
     public static void main(String[] args) throws IOException {
         String str = "哈哈qaz";
     }

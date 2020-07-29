@@ -6,6 +6,11 @@ import java.util.Date;
 
 @Data
 public class Admin {
+
+    public Admin(){
+
+    }
+
     /**  */
     private Long id;
 
@@ -35,4 +40,7 @@ public class Admin {
 
     /** 帐号启用状态：0->禁用；1->启用 */
     private Integer status;
+
+    public Admin(Class aClass) {
+    }
 }

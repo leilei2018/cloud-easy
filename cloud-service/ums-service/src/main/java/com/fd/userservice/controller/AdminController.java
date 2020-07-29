@@ -21,6 +21,9 @@ public class AdminController implements IFeignAdminService {
     @Autowired
     IFeignCmsHelpService feignCmsHelpService;
 
+
+
+
     @Override
     public List<AdminVo> list(AdminDto dto) {
         //就是获取Admin的可读写字段，然后从dto中获取，并设置

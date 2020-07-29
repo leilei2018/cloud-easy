@@ -9,6 +9,7 @@
         <module>cloud-service-api</module>
         <module>cloud-middleware</module>
         <module>cloud-service</module>
+        <module>cloud-helper</module>
     </modules>
 
     <parent>

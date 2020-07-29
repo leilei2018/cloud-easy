@@ -25,10 +25,13 @@ public class CmsHelpServiceImpl extends AbstractBaseServiceImpl<CmsHelp,Long, Cm
     ApplicationContext applicationContext;
     @Autowired(required = false)
     private RedissonClient redissonClient;
+    private RedissonClient redissonClient2;
+    private RedissonClient redissonClient3;
 
     @Override
     @Cacheable(key = "#id")
     public CmsHelp findById(Long id) {
+        redissonClient.getRedLock(redissonClient2.getLock(""));
         return super.findById(id);
     }
 
